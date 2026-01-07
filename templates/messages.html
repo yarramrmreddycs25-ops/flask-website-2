@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<h1>Saved Messages</h1>
+
+{% if messages %}
+    {% for name, msg in messages %}
+        <p><strong>{{ name }}</strong><br>{{ msg | replace('\n', '<br>') | safe }}</p>
+    {% endfor %}
+{% else %}
+    <p>No messages yet.</p>
+{% endif %}
+
+<a href="/home">Back to Home</a>
+{% endblock %}
