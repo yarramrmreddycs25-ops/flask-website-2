@@ -1,8 +1,27 @@
+import sqlite3
+import os
+
+DB_PATH = "messages.db"
+
+def init_db():
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            message TEXT NOT NULL
+        )
+    """)
+    conn.commit()
+    conn.close()
+
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import os
 
 app = Flask(__name__)
+init_db()
 app.secret_key = "supersecret"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
